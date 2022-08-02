@@ -9,11 +9,6 @@ public class PlayerMovement : MonoBehaviour
     public float zBounds = 1.125f;
     public float travelDistance = 0.25f;
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         // Move player a fixed distance when WASD keys are pressed
