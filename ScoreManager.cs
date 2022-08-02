@@ -6,7 +6,7 @@ using TMPro;
 public class ScoreManager : MonoBehaviour
 {
     [HideInInspector] public float startTime;
-    private float score;
+    [HideInInspector] public float score;
     private float highscore;
     public TMP_Text scoreText;
     public TMP_Text highscoreText;

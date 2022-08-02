@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class HazardHitbox : MonoBehaviour
 {
-    public ScoreManager scoreManager;
+    private ScoreManager scoreManager;
+
+    void Start() {
+        // Find scoreManager
+        scoreManager = GameObject.Find("Game Manager").GetComponent<ScoreManager>();
+    }
 
     void OnTriggerEnter(Collider other) {
         // Restart game upon collision with player
