@@ -10,7 +10,7 @@ public class HazardManager : MonoBehaviour
     public GameObject hazard;
     public int xWidth = 10;
     public int zWidth = 10;
-    public float spawnDelay = 1.5f;
+    public float spawnDelay = 0.75f;
     private float spawnTime;
 
     void Start()
@@ -31,7 +31,7 @@ public class HazardManager : MonoBehaviour
         if (Time.time - spawnTime < spawnDelay) {
             return;
         }
-        for(int i = 0; i < (scoreManager.score > 89 ? Random.Range(89, 99) : Random.Range(scoreManager.score / 2, (scoreManager.score / 2) + 10)); i++) {
+        for(int i = 0; i < (scoreManager.score > 65 ? Random.Range(65, 75) : Random.Range(scoreManager.score / 2, (scoreManager.score / 2) + 10)); i++) {
             SpawnHazard();
         }
         spawnTime = Time.time;
