@@ -7,13 +7,16 @@ public class Hazard : MonoBehaviour
 {
     public Slider hazardTimer;
     public GameObject hazardHitbox;
+    private bool hazardActive = false;
     private HazardManager hazardManager;
+    private ScoreManager scoreManager;
     private float spawnTime;
     private float currentTime;
     public float warningDelay = 1f;
     public float despawnDelay = 0.5f;
     public float xLowerBound = 1.125f;
     public float zLowerBound = 1.125f;
+    public AudioSource[] loseSFX;
 
     void Start()
     {
@@ -22,6 +25,12 @@ public class Hazard : MonoBehaviour
 
         // Find hazardManager
         hazardManager = GameObject.Find("Game Manager").GetComponent<HazardManager>();        
+
+        // Find scoreManager
+        scoreManager = GameObject.Find("Game Manager").GetComponent<ScoreManager>();
+
+        // Find loseSFX
+        loseSFX = GameObject.Find("Music Box").GetComponents<AudioSource>();
     }
 
     void Update()
@@ -35,12 +44,22 @@ public class Hazard : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // Set timerr value based on currentTime
+        // Set timer value based on currentTime
         if (currentTime < warningDelay) {
             hazardTimer.value = currentTime / warningDelay;
         }
 
         // Activate hitbox when time elapses
         hazardHitbox.SetActive(currentTime > warningDelay);
+        hazardActive = currentTime > warningDelay;
+    }
+
+    void OnTriggerStay(Collider other) {
+        // Restart game upon collision with player
+        if(other.gameObject.layer == 3 && hazardActive) {
+            hazardActive = false;
+            scoreManager.startTime = Time.time;
+            loseSFX[1].Play();
+        }
     }
 }
