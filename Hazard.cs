@@ -57,9 +57,10 @@ public class Hazard : MonoBehaviour
     void OnTriggerStay(Collider other) {
         // Restart game upon collision with player
         if(other.gameObject.layer == 3 && hazardActive) {
-            hazardActive = false;
             scoreManager.startTime = Time.time;
             loseSFX[1].Play();
+            hazardManager.spawnLocationMap[Mathf.FloorToInt(((transform.position.x + xLowerBound) * 4) + ((transform.position.z + zLowerBound) * 40))] = false;
+            Destroy(gameObject);
         }
     }
 }
